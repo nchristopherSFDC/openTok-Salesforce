@@ -1,0 +1,29 @@
+<apex:page controller="OpenTokViewController" showHeader="false" sidebar="false">
+  <apex:includeScript value="{!$Resource.opentok}"/>
+    <script type="text/javascript">
+      // Initialize API key, session, and token...
+      // Think of a session as a room, and a token as the key to get in to the room
+      // Sessions and tokens are generated on your server and passed down to the client
+
+      var apiKey = "{!apiKey}";
+      var sessionId = "{!sessionId}";
+      var token = "{!token}";
+      console.log("apiKey : " + apiKey);
+      console.log("sessionId : " + sessionId);
+      console.log("token : " + token);
+      //Initialize session, set up event listeners, and connect
+      var session = OT.initSession(apiKey, sessionId);
+
+      session.on("streamCreated", function(event) {
+        session.subscribe(event.stream);
+      });
+
+      session.connect(token, function(error) {
+        var publisher = OT.initPublisher("myPublisherDiv");
+        session.publish(publisher);
+      });
+    </script>
+    
+    <h1>Awesome video feed!</h1>
+    <div id="myPublisherDiv"></div>
+</apex:page>
