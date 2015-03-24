@@ -37,12 +37,43 @@ public with sharing class OpenTokHttpClient {
 		try{
 			this.httpResponse = this.http.send(this.httpRequest);
 			System.DEBUG(this.httpResponse);
-			return '';
+			System.DEBUG(this.httpResponse.getBody());
+			return this.httpResponse.getBody();
 		}catch(Exception e){
 			System.DEBUG(e);
 			return '';
 		}
 		return '';
+	}
+
+	public String stopArchive(String archiveId){
+		String responseString = '';
+		this.setStopArchiveRequest(archiveId);
+		try{
+			this.httpResponse = this.http.send(this.httpRequest);
+			System.DEBUG(this.httpResponse);
+			System.DEBUG(this.httpResponse.getBody());
+			return this.httpResponse.getBody();
+		}catch(Exception e){
+			System.DEBUG(e);
+			return '';
+		}
+		return responseString;
+	}
+
+	public String deleteArchive(String archiveId){
+		String responseString = '';
+		this.setDeleteArchiveRequest(archiveId);
+		try{
+			this.httpResponse = this.http.send(this.httpRequest);
+			System.DEBUG(this.httpResponse);
+			System.DEBUG(this.httpResponse.getBody());
+			return this.httpResponse.getBody();
+		}catch(Exception e){
+			System.DEBUG(e);
+			return '';
+		}
+		return responseString;
 	}
 	
 	private void setHttpRequest(){
@@ -58,6 +89,20 @@ public with sharing class OpenTokHttpClient {
 		this.httpRequest.setHeader('Content-Type', 'application/json');
 		System.DEBUG(JSON.serialize(dataWapper));
 		this.httpRequest.setBody(JSON.serialize(dataWapper));
+	}
+
+	private void setStopArchiveRequest(String archiveId){
+		this.httpRequest.setEndpoint(this.apiUrl + '/v2/partner/' + this.apiKey + '/archive/' + archiveId + '/stop');
+		this.httpRequest.setMethod('POST');
+		this.httpRequest.setHeader('X-TB-PARTNER-AUTH', this.apiKey + ':' + this.apiSecret);
+		this.httpRequest.setHeader('Content-Type', 'application/json');
+	}
+
+	private void setDeleteArchiveRequest(String archiveId){
+		this.httpRequest.setEndpoint(this.apiUrl + '/v2/partner/' + this.apiKey + '/archive/' + archiveId);
+		this.httpRequest.setMethod('DELETE');
+		this.httpRequest.setHeader('X-TB-PARTNER-AUTH', this.apiKey + ':' + this.apiSecret);
+		this.httpRequest.setHeader('Content-Type', 'application/json');
 	}
 
 	public Class ArchiveDataWrapper{
