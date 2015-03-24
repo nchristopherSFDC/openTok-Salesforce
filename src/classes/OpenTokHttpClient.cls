@@ -18,11 +18,11 @@ public with sharing class OpenTokHttpClient {
 	public String createSession(){
 		this.setHttpRequest();
 		try{
-			httpResponse = http.send(httpRequest);
-			if(httpResponse.getStatusCode() == 200){
-				return OpenTokXMLStreamReader.parseSessionResponse(httpResponse.getBodyDocument());
+			this.httpResponse = http.send(this.httpRequest);
+			if(this.httpResponse.getStatusCode() == 200){
+				return OpenTokXMLStreamReader.parseSessionResponse(this.httpResponse.getBodyDocument());
 			}else{
-				return 'Could Not create session. Could not read response : ' + httpResponse.getStatusCode();
+				return 'Could Not create session. Could not read response : ' + this.httpResponse.getStatusCode();
 			}
 			return 'Error';
 		}catch (Exception e){
@@ -30,9 +30,44 @@ public with sharing class OpenTokHttpClient {
 		}
 	}
 
+	public String startArchive(String sessionId, String name){
+		String responseString = '';
+		ArchiveDataWrapper dataWapper = new ArchiveDataWrapper(sessionId, name);
+		this.setStartArchiveRequest(dataWapper);
+		try{
+			this.httpResponse = this.http.send(this.httpRequest);
+			System.DEBUG(this.httpResponse);
+			return '';
+		}catch(Exception e){
+			System.DEBUG(e);
+			return '';
+		}
+		return '';
+	}
+	
 	private void setHttpRequest(){
-		httpRequest.setEndpoint(apiUrl + '/session/create');
-		httpRequest.setMethod('POST');
-		httpRequest.setHeader('X-TB-PARTNER-AUTH', this.apiKey + ':' + this.apiSecret);
+		this.httpRequest.setEndpoint(this.apiUrl + '/session/create');
+		this.httpRequest.setMethod('POST');
+		this.httpRequest.setHeader('X-TB-PARTNER-AUTH', this.apiKey + ':' + this.apiSecret);
+	}
+
+	private void setStartArchiveRequest(ArchiveDataWrapper dataWapper){
+		this.httpRequest.setEndpoint(this.apiUrl + '/v2/partner/' + this.apiKey + '/archive');
+		this.httpRequest.setMethod('POST');
+		this.httpRequest.setHeader('X-TB-PARTNER-AUTH', this.apiKey + ':' + this.apiSecret);
+		this.httpRequest.setHeader('Content-Type', 'application/json');
+		System.DEBUG(JSON.serialize(dataWapper));
+		this.httpRequest.setBody(JSON.serialize(dataWapper));
+	}
+
+	public Class ArchiveDataWrapper{
+		String sessionId { get; set; }
+		String name { get; set; }
+
+		public ArchiveDataWrapper(String sessionId, String name){
+			this.sessionId = sessionId;
+			this.name = name;
+		}
+
 	}
 }

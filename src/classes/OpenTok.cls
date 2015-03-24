@@ -8,6 +8,7 @@ public with sharing class OpenTok {
 	private Integer apiKey;
     private String apiSecret;
     private String apiUrl;
+    private OpenTokHttpClient httpClient;
 
     /**
      * Creates an OpenTok object.
@@ -19,6 +20,7 @@ public with sharing class OpenTok {
         this.apiKey = apiKey;
         this.apiSecret = apiSecret.trim();
         this.apiUrl = 'https://api.opentok.com';
+        httpClient = new OpenTokHttpClient(this.apiUrl, this.apiKey, this.apiSecret);
     }
 
 
@@ -28,9 +30,8 @@ public with sharing class OpenTok {
      * get the session ID, which uniquely identifies the
      * session. You will use this session ID in the client SDKs to identify the session.
      */
-    public OpenTokSession createSession(OpenTokSessionProperties properties){
-    	OpenTokHttpClient httpClient = new OpenTokHttpClient(this.apiUrl, this.apiKey, this.apiSecret);
-    	String xmlResponse = httpClient.createSession();
+    public OpenTokSession createSession(OpenTokSessionProperties properties){ 
+    	String xmlResponse = this.httpClient.createSession();
     	return new OpenTokSession(xmlResponse,apiKey,apiSecret);
     }
 
