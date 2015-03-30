@@ -45,7 +45,7 @@ A managed package is under consideration and the link to install this package in
 To create an OpenTok Session, use the `OpenTok` instance's `createSession(SessionProperties properties)`
 method. The `properties`(ToDo) parameter is optional and it is used to specify two things:
 
-* Whether the session uses the OpenTok Media Router(In Progress)
+* Whether the session uses the OpenTok Media Router(In Progress, Default to relayed for now)
 * A location hint for the OpenTok server.
 
 ```
