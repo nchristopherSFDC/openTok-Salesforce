@@ -12,8 +12,32 @@ with [OpenTok 2.0 archives](http://tokbox.com/#archiving).
 
 
 # Installation
-Coming Soon
 
+You can use the [ant migration tool](https://developer.salesforce.com/page/Force.com_Migration_Tool) to deploy this project to your 
+salesforce org.
+
+Edit the `package.xml` file:
+```package.xml
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+	<types>
+		<members>*</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>ApexTrigger</name>
+	</types>
+	<types>
+		<members>openTokKey__c</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>StaticResource</name>
+	</types>
+	<version>28.0</version>
+</Package>
+```
 ## Creating Sessions
 
 To create an OpenTok Session, use the `OpenTok` instance's `createSession(SessionProperties properties)`
