@@ -1,4 +1,4 @@
-public with sharing class OpenTokHttpClient {
+global with sharing class OpenTokHttpClient {
 	private final String apiUrl;
     private final Integer apiKey;
     private final String apiSecret;

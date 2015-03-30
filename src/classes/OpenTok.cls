@@ -4,7 +4,7 @@
 * and the API secret from https://dashboard.tokbox.com Do not publicly share
 * your API secret. You will use it with the OpenTok constructor to create OpenTok sessions.
 */
-public with sharing class OpenTok {
+Global with sharing class OpenTok {
 	private Integer apiKey;
     private String apiSecret;
     private String apiUrl;
