@@ -38,14 +38,25 @@ Edit the `package.xml` file:
 	<version>28.0</version>
 </Package>
 ```
+A managed package is under consideration and the link to install this package in your org will be available soon. 
+
 ## Creating Sessions
 
 To create an OpenTok Session, use the `OpenTok` instance's `createSession(SessionProperties properties)`
 method. The `properties`(ToDo) parameter is optional and it is used to specify two things:
 
-* Whether the session uses the OpenTok Media Router
+* Whether the session uses the OpenTok Media Router(In Progress)
 * A location hint for the OpenTok server.
 
+```
+String sessionId;
+String apiKey;
+
+apiKey = openTokKey__c.getValue('key').Api_Key__c;//Ensure custom setting has record
+OpenTok openTok = new OpenTok(Integer.valueOf(this.apiKey), openTokKey__c.getValues('key').Secret__c);
+OpenTokSession session = openTok.createSession(null);
+sessionId = session.sessionId;
+```
 
 ## Generating Tokens
 
@@ -55,6 +66,12 @@ You can generate a token either by calling an OpenTok instance's
 instance's `generateToken(TokenOptions options)` method after creating it. The `options` parameter
 is optional and it is used to set the role, expire time, and connection data of the token. An
 instance can be initialized using the `OpenTokTokenOptions` class.
+
+```
+OpenTokSession session = new OpenTokSession(sessionId, Integer.valueOf(apiKey), openTokKey__c.getValues('key').Secret__c);
+OpenTokTokenOptions tokenOptions = new OpenTokTokenOptions(OpenTokRole.PUBLISHER, 30, UserInfo.getName());
+String token = session.generateToken(tokenOptions);
+```
 
 ## Working with Archives
 
