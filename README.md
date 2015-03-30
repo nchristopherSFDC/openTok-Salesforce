@@ -85,12 +85,12 @@ OpenTokHTTPClient openTokHttpClient = new OpenTokHTTPClient('https://api.opentok
 						Integer.valueof(openTokKey__c.getValues('key').Api_Key__c), 
 						openTokKey__c.getValues('key').Secret__c);
 openTokHttpClient.startArchive('sessionId', 'Test_Recording');
+```
 
 You can also stop and delete an archive by using the instance methods `stopArchive(String archiveId)` and `deleteArchive(String archiveId)`
 
 Ability to list all archives and get an archive is under development(Coming Soon!)
 
-```
 # Requirements
 
 You need an OpenTok API key and API secret, which you can obtain at <https://dashboard.tokbox.com>.
