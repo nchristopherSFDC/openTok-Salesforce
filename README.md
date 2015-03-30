@@ -49,13 +49,12 @@ method. The `properties`(ToDo) parameter is optional and it is used to specify t
 * A location hint for the OpenTok server.
 
 ```
-String sessionId;
-String apiKey;
-
-apiKey = openTokKey__c.getValue('key').Api_Key__c;//Ensure custom setting has record
-OpenTok openTok = new OpenTok(Integer.valueOf(this.apiKey), openTokKey__c.getValues('key').Secret__c);
+//Ensure custom setting has record
+String apiKey = openTokKey__c.getValue('key').Api_Key__c;
+OpenTok openTok = new OpenTok(Integer.valueOf(this.apiKey),
+			 openTokKey__c.getValues('key').Secret__c);
 OpenTokSession session = openTok.createSession(null);
-sessionId = session.sessionId;
+String sessionId = session.sessionId;
 ```
 
 ## Generating Tokens
@@ -68,15 +67,30 @@ is optional and it is used to set the role, expire time, and connection data of 
 instance can be initialized using the `OpenTokTokenOptions` class.
 
 ```
-OpenTokSession session = new OpenTokSession(sessionId, Integer.valueOf(apiKey), openTokKey__c.getValues('key').Secret__c);
-OpenTokTokenOptions tokenOptions = new OpenTokTokenOptions(OpenTokRole.PUBLISHER, 30, UserInfo.getName());
+OpenTokSession session = new OpenTokSession(sessionId, 
+				Integer.valueOf(apiKey), 
+				openTokKey__c.getValues('key').Secret__c);
+OpenTokTokenOptions tokenOptions = new OpenTokTokenOptions(OpenTokRole.PUBLISHER, 
+					30, 
+					UserInfo.getName());
 String token = session.generateToken(tokenOptions);
 ```
 
 ## Working with Archives
+You can start the recording of an OpenTok Session using an instance of `OpenTokHttpClient`  `startArchive(String sessionId, String name) method`. 
+This will return a String with the archive Id. The parameter name is a optional and used to assign a name for the Archive. 
+Note that you can only start an Archive on a Session that has clients connected.
+```
+OpenTokHTTPClient openTokHttpClient = new OpenTokHTTPClient('https://api.opentok.com', 
+						Integer.valueof(openTokKey__c.getValues('key').Api_Key__c), 
+						openTokKey__c.getValues('key').Secret__c);
+openTokHttpClient.startArchive('sessionId', 'Test_Recording');
 
-TODO - Coming Soon - Work In Progress
+You can also stop and delete an archive by using the instance methods `stopArchive(String archiveId)` and `deleteArchive(String archiveId)`
 
+Ability to list all archives and get an archive is under development(Coming Soon!)
+
+```
 # Requirements
 
 You need an OpenTok API key and API secret, which you can obtain at <https://dashboard.tokbox.com>.
