@@ -7,9 +7,6 @@ The OpenTok Salesforce SDK lets you generate
 [tokens](http://tokbox.com/opentok/tutorials/create-token/) for [OpenTok](http://www.tokbox.com/)
 applications that run on the Salesforce Platform. 
 
-Coming Soon -  the SDK will also include support for working
-with [OpenTok 2.0 archives](http://tokbox.com/#archiving).
-
 
 # Installation
 
