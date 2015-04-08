@@ -20,6 +20,10 @@ global with sharing class OpenTokHttpCalloutMock implements HttpCalloutMock {
             res.setHeader('Content-Type', 'application/json');
             res.setBody('{"id" : "testarchivedid", "status" : "started", "name" : "testname", "reason" : "", "sessionId" : "testsessionid", "partnerId" : 45168812,   "createdAt" : 1425395554038, "size" : 0, "duration" : 0, "mode" : "automatic", "updatedAt" : 1425395554038, "url" : null}');
             res.setStatusCode(200);
+        }else if(req.getMethod() == 'DELETE'){
+        	res.setHeader('Content-Type', 'application/json');
+            res.setBody('pass');
+            res.setStatusCode(200);
         }
         return res;
     }

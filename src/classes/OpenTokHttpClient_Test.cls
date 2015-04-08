@@ -38,7 +38,7 @@ private class OpenTokHttpClient_Test {
 
         System.assertEquals('testsessionid', result);
 	}
-    /*@isTest 
+    @isTest 
     static void deleteArchiving_Success() {
         Test.setMock(HttpCalloutMock.class, new OpenTokHttpCalloutMock());
 
@@ -47,6 +47,6 @@ private class OpenTokHttpClient_Test {
             String result = controller.deleteArchive('testsessionId');
         Test.stopTest();
 
-        System.assertNotEquals('{"id" : "testarchivedid", "status" : "started", "name" : "testname", "reason" : "", "sessionId" : "testsessionid", "partnerId" : 45168812,   "createdAt" : 1425395554038, "size" : 0, "duration" : 0, "mode" : "automatic", "updatedAt" : 1425395554038, "url" : null}', result);
-    }*/
+        System.assertEquals('pass', result);
+    }
 }
