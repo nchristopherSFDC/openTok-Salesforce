@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-For anyone looking to get involved to this project, we are glad to hear from you. Here are a few types of contributions
+For anyone looking to get involved to this project, I am glad to hear from you. Here are a few types of contributions
 that we would be interested in hearing about.
 
 *  Bug fixes
